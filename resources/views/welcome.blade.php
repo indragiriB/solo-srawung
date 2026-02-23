@@ -354,50 +354,60 @@
                         <div class="absolute -top-6 -right-6 w-24 h-24 bg-indigo-600/20 rounded-full blur-2xl"></div>
                         
                         <div class="glass p-8 lg:p-12 rounded-[3.5rem] w-full border border-white/5 relative z-10 shadow-2xl">
-                            <form action="{{ route('register.custom') }}" method="POST" class="space-y-6">
-                                @csrf
-                                <div class="relative group">
-                                    <i class="fas fa-user absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
-                                    <input type="text" name="name" placeholder="Nama Lengkap" required 
-                                        class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-white placeholder:text-slate-600">
-                                </div>
+                           <form action="{{ route('register.custom') }}" method="POST" class="space-y-6">
+    @csrf
+    
+    @if ($errors->any())
+        <div class="bg-red-500/20 border border-red-500 text-red-200 p-4 rounded-xl text-sm">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>• {{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="relative group">
-                                        <i class="fas fa-envelope absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
-                                        <input type="email" name="email" placeholder="Email" required 
-                                            class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition text-white placeholder:text-slate-600">
-                                    </div>
-                                    <div class="relative group">
-                                        <i class="fab fa-whatsapp absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
-                                        <input type="text" name="phone" placeholder="WhatsApp" required 
-                                            class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition text-white placeholder:text-slate-600">
-                                    </div>
-                                </div>
+    <div class="relative group">
+        <i class="fas fa-user absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
+        <input type="text" name="name" value="{{ old('name') }}" placeholder="Nama Lengkap" required 
+            class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
+    </div>
 
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="relative group">
-                                        <i class="fas fa-lock absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
-                                        <input type="password" name="password" placeholder="Password" required 
-                                            class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition text-white placeholder:text-slate-600">
-                                    </div>
-                                    <div class="relative group">
-                                        <i class="fas fa-shield-alt absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
-                                        <input type="password" name="password_confirmation" placeholder="Ulangi Password" required 
-                                            class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition text-white placeholder:text-slate-600">
-                                    </div>
-                                </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="relative group">
+            <i class="fas fa-envelope absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
+            <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required 
+                class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
+        </div>
+        <div class="relative group">
+            <i class="fab fa-whatsapp absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
+            <input type="text" name="phone" value="{{ old('phone') }}" placeholder="WhatsApp" required 
+                class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
+        </div>
+    </div>
 
-                                <div class="pt-4">
-                                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-6 rounded-3xl font-extrabold text-xl transition-all shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-3 group">
-                                        Daftar Sekarang 
-                                        <i class="fas fa-arrow-right group-hover:translate-x-2 transition"></i>
-                                    </button>
-                                </div>
-                                <p class="text-center text-slate-500 text-sm mt-6">
-                                    Dengan mendaftar, kamu menyetujui <a href="#" class="text-indigo-400 hover:underline">Syarat & Ketentuan</a> SoloSrawung.
-                                </p>
-                            </form>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="relative group">
+            <i class="fas fa-lock absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
+            <input type="password" id="password" name="password" placeholder="Password (Min 8 Karakter)" 
+                required minlength="8"
+                class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
+            <p id="pass-hint" class="text-[10px] mt-2 ml-2 text-slate-500 italic">Minimal 8 karakter</p>
+        </div>
+        <div class="relative group">
+            <i class="fas fa-shield-alt absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
+            <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Ulangi Password" 
+                required minlength="8"
+                class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
+        </div>
+    </div>
+
+    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-6 rounded-3xl font-extrabold text-xl shadow-xl shadow-indigo-600/30 transform active:scale-95 transition-all">
+        Daftar Sekarang <i class="fas fa-arrow-right ml-2"></i>
+    </button>
+</form>
+
+
                         </div>
                     </div>
                 </div>
@@ -499,6 +509,35 @@
     </div>
 
     <script>
+
+
+
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("password_confirmation");
+    const hint = document.getElementById("pass-hint");
+
+    function validatePassword() {
+        // Validasi Panjang
+        if (password.value.length < 8) {
+            hint.classList.replace('text-slate-500', 'text-red-400');
+            hint.innerText = "Terlalu pendek! (Min 8)";
+        } else {
+            hint.classList.replace('text-red-400', 'text-emerald-400');
+            hint.innerText = "Panjang password aman.";
+        }
+
+        // Validasi Kecocokan
+        if (password.value != confirmPassword.value) {
+            confirmPassword.setCustomValidity("Password tidak cocok!");
+        } else {
+            confirmPassword.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirmPassword.onkeyup = validatePassword;
+    password.onkeyup = validatePassword;
+
         function toggleMobileMenu() {
         const menu = document.getElementById('mobileMenu');
         const icon = document.getElementById('menuIcon');
