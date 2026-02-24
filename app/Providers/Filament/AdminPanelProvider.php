@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Blade;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,17 +29,40 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
+                'warning' => Color::Amber,
+                'gray' => Color::Slate,
             ])
+            ->font('Plus Jakarta Sans')
+            ->brandName('SoloSrawung')
+            ->darkMode(true)
+            // Render Hook yang aman dari error sintaks
+            ->renderHook(
+                'panels::head.done',
+                fn (): string => Blade::render('
+                    <style>
+                        body { background-color: #0f172a !important; }
+                        .fi-main-ctn { background-color: #0f172a !important; }
+                        .fi-sidebar { background-color: #020617 !important; }
+                        .fi-wi-stats-overview-stat-card, .fi-section, .fi-ta-ctn {
+                            background: rgba(30, 41, 59, 0.4) !important;
+                            backdrop-filter: blur(8px) !important;
+                            border: 1px solid rgba(255, 255, 255, 0.05) !important;
+                        }
+                    </style>
+                '),
+            )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
+            // Matikan dulu discovery widget yang folder-nya aneh untuk mencegah loop
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Daftarkan manual sesuai path folder asli kamu sekarang
+                \App\Filament\Resources\AdminResource\Widgets\StatsOverview::class,
+                \App\Filament\Resources\AdminResource\Widgets\AttendanceChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

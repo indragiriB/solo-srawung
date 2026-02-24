@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoloSrawung - Berbagi Ilmu di Kota Solo</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+
         @keyframes fade-in-down {
         from { opacity: 0; transform: translateY(-10px); }
         to { opacity: 1; transform: translateY(0); }
@@ -115,29 +117,79 @@
 </div>
     </section>
 
-    <section id="statistik" class="py-20 bg-slate-900/50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="glass p-8 rounded-3xl text-center">
-                    <div class="text-4xl font-extrabold text-white mb-2">{{ \App\Models\Requirement::count() }}</div>
-                    <div class="text-slate-500 text-xs font-bold uppercase tracking-widest">Lowongan Aktif</div>
+   <section id="statistik" class="py-24 bg-slate-950 relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500/5 via-transparent to-transparent"></div>
+
+    <div class="max-w-7xl mx-auto px-4 relative z-10">
+        <div class="mb-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Dampak Nyata dalam <span class="gradient-text">Angka</span></h2>
+            <p class="text-slate-500 max-w-2xl mx-auto text-sm md:text-base">Transparansi aktivitas pengabdian relawan SoloSrawung yang tercatat secara real-time di seluruh wilayah Surakarta.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+            <div class="lg:col-span-4 grid grid-cols-2 lg:grid-cols-1 gap-4">
+                <div class="glass p-6 rounded-3xl border-white/5 group hover:border-indigo-500/50 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500 group-hover:bg-indigo-600 group-hover:text-white transition">
+                            <i class="fas fa-briefcase text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-white">{{ \App\Models\Requirement::count() }}</div>
+                            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-widest leading-tight">Lowongan Aktif</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass p-8 rounded-3xl text-center border-amber-500/20">
-                    <div class="text-4xl font-extrabold text-amber-500 mb-2">{{ \App\Models\User::where('role', 'volunteer')->count() }}</div>
-                    <div class="text-slate-500 text-xs font-bold uppercase tracking-widest">Relawan Hebat</div>
+                <div class="glass p-6 rounded-3xl border-white/5 group hover:border-amber-500/50 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500 group-hover:bg-amber-600 group-hover:text-white transition">
+                            <i class="fas fa-users text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-amber-500">{{ \App\Models\User::where('role', 'volunteer')->count() }}</div>
+                            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-widest leading-tight">Relawan Hebat</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass p-8 rounded-3xl text-center">
-                    <div class="text-4xl font-extrabold text-white mb-2">{{ \App\Models\Assignment::where('status', 'approved')->count() }}</div>
-                    <div class="text-slate-500 text-xs font-bold uppercase tracking-widest">Sekolah Terbantu</div>
+                <div class="glass p-6 rounded-3xl border-white/5 group hover:border-emerald-500/50 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            <i class="fas fa-school text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-white">{{ \App\Models\Assignment::where('status', 'approved')->count() }}</div>
+                            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-widest leading-tight">Sekolah Terbantu</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass p-8 rounded-3xl text-center border-indigo-500/20">
-                    <div class="text-4xl font-extrabold text-indigo-400 mb-2">{{ \App\Models\Attendance::count() }}</div>
-                    <div class="text-slate-500 text-xs font-bold uppercase tracking-widest">Jam Pengabdian</div>
+                <div class="glass p-6 rounded-3xl border-white/5 group hover:border-indigo-400/50 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 group-hover:bg-indigo-400 group-hover:text-white transition">
+                            <i class="fas fa-clock text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-white">{{ \App\Models\Attendance::count() }}</div>
+                            <div class="text-[10px] text-slate-500 uppercase font-bold tracking-widest leading-tight">Jam Pengabdian</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="glass p-8 rounded-[3rem] border-white/5 h-full relative overflow-hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="text-white font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
+                            Trend Aktivitas Relawan
+                        </h4>
+                        <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">7 Hari Terakhir</div>
+                    </div>
+                    
+                    <div id="chart-aktivitas" class="w-full"></div>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <section id="how-it-works" class="py-24 px-4 max-w-7xl mx-auto">
         <div class="text-center mb-16">
             <h2 class="text-3xl font-bold mb-4">Langkah Pengabdian</h2>
@@ -561,7 +613,62 @@
             document.body.style.overflow = 'hidden';
         }
         function closeApplyModal() { document.getElementById('applyModal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+    
+ 
+    document.addEventListener("DOMContentLoaded", function() {
+        var options = {
+            series: [{
+                name: 'Jam Pengabdian',
+                data: [31, 40, 28, 51, 42, 109, 100] // Kamu bisa ganti ini dengan data asli dari Controller
+            }],
+            chart: {
+                height: 350,
+                type: 'area',
+                toolbar: { show: false },
+                background: 'transparent',
+                foreColor: '#64748b'
+            },
+            colors: ['#6366f1'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.45,
+                    opacityTo: 0.05,
+                    stops: [20, 100, 100, 100]
+                }
+            },
+            dataLabels: { enabled: false },
+            stroke: {
+                curve: 'smooth',
+                width: 3,
+            },
+            grid: {
+                borderColor: '#1e293b',
+                strokeDashArray: 4,
+            },
+            xaxis: {
+                categories: ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
+                axisBorder: { show: false },
+                axisTicks: { show: false },
+            },
+            yaxis: {
+                labels: {
+                    formatter: function (val) { return val + " Jam"; }
+                }
+            },
+            tooltip: {
+                theme: 'dark',
+                x: { show: true },
+            },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart-aktivitas"), options);
+        chart.render();
+    });
+
     </script>
+
 
 </body>
 </html>
