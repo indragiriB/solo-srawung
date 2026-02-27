@@ -30,17 +30,29 @@
                 <a href="#statistik" class="text-sm font-medium hover:text-indigo-400 transition">Statistik</a>
                 <a href="#how-it-works" class="text-sm font-medium hover:text-indigo-400 transition">Cara Kerja</a>
                 <a href="#lowongan" class="text-sm font-medium hover:text-indigo-400 transition">Lowongan</a>
-                @auth
-                    <div class="flex items-center space-x-4 border-l border-slate-700 pl-6">
-                        <a href="/relawan" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2 rounded-full text-sm font-bold transition">Dashboard</a>
-                        <form action="/relawan/logout" method="POST">@csrf <button type="submit" class="text-xs text-slate-400 hover:text-red-400 font-bold uppercase">Logout</button></form>
-                    </div>
-                @else
-                    <div class="flex items-center space-x-4">
-                        <button onclick="openLoginModal()" class="text-sm font-bold text-slate-300 hover:text-white transition">Login</button>
-                        <a href="#daftar" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-lg shadow-indigo-500/20 transition">Daftar</a>
-                    </div>
-                @endauth
+   @auth
+    <div class="flex items-center space-x-4 border-l border-slate-700 pl-6">
+        @if(auth()->user()->role === 'admin')
+            <a href="/admin" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2 rounded-full text-sm font-bold transition">Dashboard Admin</a>
+            <form action="{{ route('filament.admin.auth.logout') }}" method="POST">
+                @csrf 
+                <button type="submit" class="ml-4 text-xs text-slate-400 hover:text-red-400 font-bold uppercase transition">Logout</button>
+            </form>
+        @else
+            <a href="/relawan" class="bg-amber-500 hover:bg-amber-400 text-white px-5 py-2 rounded-full text-sm font-bold transition shadow-lg shadow-amber-500/20">Dashboard Relawan</a>
+            <form action="{{ route('filament.relawan.auth.logout') }}" method="POST">
+                @csrf 
+                <button type="submit" class="ml-4 text-xs text-slate-400 hover:text-red-400 font-bold uppercase transition">Logout</button>
+            </form>
+        @endif
+    </div>
+@else
+    <div class="flex items-center space-x-4">
+        <a href="/relawan/login" class="text-sm font-bold text-slate-300 hover:text-white transition">Login</a>
+        
+        <a href="#daftar" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-lg shadow-indigo-500/20 transition">Daftar</a>
+    </div>
+@endauth
             </div>
 
             <div class="md:hidden flex items-center">

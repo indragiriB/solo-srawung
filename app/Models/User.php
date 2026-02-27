@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use Filament\Models\Contracts\FilamentUser; // WAJIB ADA
+
 use Filament\Panel; // WAJIB ADA
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
