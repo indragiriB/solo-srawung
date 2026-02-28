@@ -418,56 +418,68 @@
                         <div class="absolute -top-6 -right-6 w-24 h-24 bg-indigo-600/20 rounded-full blur-2xl"></div>
                         
                         <div class="glass p-8 lg:p-12 rounded-[3.5rem] w-full border border-white/5 relative z-10 shadow-2xl">
-                           <form action="{{ route('register.custom') }}" method="POST" class="space-y-6">
+<form action="{{ route('register.custom') }}" method="POST" class="space-y-5">
     @csrf
     
     @if ($errors->any())
-        <div class="bg-red-500/20 border border-red-500 text-red-200 p-4 rounded-xl text-sm">
-            <ul>
+        <div class="bg-red-500/20 border border-red-500 text-red-200 p-4 rounded-xl text-sm mb-4">
+            <ul class="list-disc list-inside">
                 @foreach ($errors->all() as $error)
-                    <li>• {{ $error }}</li>
+                    <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
     @endif
 
     <div class="relative group">
-        <i class="fas fa-user absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
+        <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+            <i class="fas fa-user text-slate-500 group-focus-within:text-indigo-500 transition-colors"></i>
+        </div>
         <input type="text" name="name" value="{{ old('name') }}" placeholder="Nama Lengkap" required 
-            class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
+            class="w-full pl-14 pr-6 py-4 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition-all placeholder:text-slate-600">
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div class="relative group">
-            <i class="fas fa-envelope absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
+            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <i class="fas fa-envelope text-slate-500 group-focus-within:text-indigo-500 transition-colors"></i>
+            </div>
             <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required 
-                class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
+                class="w-full pl-14 pr-6 py-4 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition-all placeholder:text-slate-600">
         </div>
         <div class="relative group">
-            <i class="fab fa-whatsapp absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
+            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <i class="fab fa-whatsapp text-slate-500 group-focus-within:text-indigo-500 transition-colors"></i>
+            </div>
             <input type="text" name="phone" value="{{ old('phone') }}" placeholder="WhatsApp" required 
-                class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
+                class="w-full pl-14 pr-6 py-4 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition-all placeholder:text-slate-600">
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div class="relative group">
-            <i class="fas fa-lock absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
-            <input type="password" id="password" name="password" placeholder="Password (Min 8 Karakter)" 
+            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <i class="fas fa-lock text-slate-500 group-focus-within:text-indigo-500 transition-colors"></i>
+            </div>
+            <input type="password" id="password" name="password" placeholder="Password" 
                 required minlength="8"
-                class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
-            <p id="pass-hint" class="text-[10px] mt-2 ml-2 text-slate-500 italic">Minimal 8 karakter</p>
+                class="w-full pl-14 pr-6 py-4 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition-all placeholder:text-slate-600">
         </div>
         <div class="relative group">
-            <i class="fas fa-shield-alt absolute left-5 top-5 text-slate-500 group-focus-within:text-indigo-500 transition"></i>
+            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <i class="fas fa-shield-alt text-slate-500 group-focus-within:text-indigo-500 transition-colors"></i>
+            </div>
             <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Ulangi Password" 
                 required minlength="8"
-                class="w-full pl-14 pr-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition">
+                class="w-full pl-14 pr-6 py-4 bg-slate-900/50 border border-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 text-white transition-all placeholder:text-slate-600">
         </div>
     </div>
+    
+    <p id="pass-hint" class="text-[10px] -mt-2 ml-2 text-slate-500 italic">Minimal 8 karakter</p>
 
-    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-6 rounded-3xl font-extrabold text-xl shadow-xl shadow-indigo-600/30 transform active:scale-95 transition-all">
-        Daftar Sekarang <i class="fas fa-arrow-right ml-2"></i>
+    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-4 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-600/20 transform active:scale-95 transition-all flex items-center justify-center space-x-2">
+        <span>Daftar Sekarang</span>
+        <i class="fas fa-arrow-right text-sm"></i>
     </button>
 </form>
 
